@@ -16,14 +16,12 @@ malware_path = sys.argv[1] # path to directory with malware
 # add try/catch block in case of invalid path
 malware_dir = os.scandir(malware_path) # returns list of os.DirEntry objects
 
-# global variables? (maybe bad?)
-# if key exists in this dict, add one to its value
-# otherwise, add it to dict
-rule1 = {} 
-
 # accesses each file in directory
 for malware_file in malware_dir:
     pe = pefile.PE(malware_file)
+
+    # keys = memory address; value = number of occurences in file
+    rule1 = {}
 
     if hasattr(pe, 'DIRECTORY_ENTRY_EXPORT'):
         # prints out address for each function in current file

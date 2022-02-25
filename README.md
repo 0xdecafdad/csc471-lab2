@@ -1,4 +1,4 @@
-# csc472-lab2
+# csc471-lab2
 Heuristic malware detection system
 
 This program scans a directory for pe files and determines if each is a malware using a set of heuristical rules
