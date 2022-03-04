@@ -69,25 +69,38 @@ def main():
                     rule2[offset] = 1
 
         # determines if current file is malware based on parameters stated earlier
-        is_malware = False # initially assumes file is not malware
+        # initially assumes neither rule is violated
+        rule1_violated = False
+        rule2_violated = False
 
         # check for violation of rule 1
         for num_occur_addr in rule1.values():
+            # three or more functions share the same memory address
             if num_occur_addr >= 3:
-                is_malware = True
+                rule1_violated = True
 
         # check for violation of rule 2
         for num_occur_offset in rule2.values():
+            # memory offset between three or more functions is the same
             if num_occur_offset >= 3:
-                is_malware = True
+                rule2_violated = True
 
-        # print message based on whether or not malware was detected
-        if is_malware == True:
+        # if either rule was violated, file is flagged as malware
+        if rule1_violated or rule2_violated:
             print("%s: Malware detected!" % malware_file.name)
         else:
             print("%s: No malware detected." % malware_file.name)
 
+        if rule1_violated:
+            print("\t%s" % "(Rule 1) Three or more functions share the same memory address.")
+
+        if rule2_violated:
+            print("\t%s" % "(Rule 2) Memory offset between three or more functions is the same.")
+
+        print("") # print new line
+
         rule1.clear() # clears dictionary for next file
+        rule2.clear() # clears dictionary for next file
     # end of outer for loop
 # end main function
 
