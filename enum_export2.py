@@ -57,12 +57,28 @@ def main():
         addr_as_hex = [int(addr, 16) for addr in rule1.keys()] # Haskell lol
         insertion_sort(addr_as_hex) # sort array
 
+        # calculate memory offset between two functions
+        # add value to dict if it does not exist already
+        # otherwise, add one to its value
+        for i in range(1, len(addr_as_hex)):
+                offset = addr_as_hex[i] - addr_as_hex[i-1]
+                
+                if offset in rule2:
+                    rule2[offset] += 1
+                else:
+                    rule2[offset] = 1
+
         # determines if current file is malware based on parameters stated earlier
         is_malware = False # initially assumes file is not malware
 
         # check for violation of rule 1
-        for value in rule1.values():
-            if value >= 3:
+        for num_occur_addr in rule1.values():
+            if num_occur_addr >= 3:
+                is_malware = True
+
+        # check for violation of rule 2
+        for num_occur_offset in rule2.values():
+            if num_occur_offset >= 3:
                 is_malware = True
 
         # print message based on whether or not malware was detected
