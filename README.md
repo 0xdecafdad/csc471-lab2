@@ -13,4 +13,14 @@ Notes:
 All malware is in the form of a PE file. I included all malware in one folder because program does not check for file type. Program will crash if incorrect file type is included.
 
 Use:
-python3 enum_export.py path_to_directory_with_malware 
+python3 enum_export.py path_to_directory_with_malware
+
+Files:
+analyze_malware.py
+Analyze all malware in specified directory.
+
+enum_export.py
+Output PE structure of individual file.
+
+malware
+Directory containing malware files.
