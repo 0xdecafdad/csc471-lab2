@@ -10,6 +10,20 @@ import pefile
 import sys
 import os
 
+# implement better sorting algorithm later
+def insertion_sort(ary):
+    # traverse through ary from index 1 to length
+    for i in range(1, len(ary)):
+        key = ary[i]
+
+        # move elements greater than key one position ahead
+        j = i-1
+        while j >= 0 and key < ary[j]:
+            ary[j+1] = ary[j]
+            j -= 1
+        ary[j+1] = key
+# end insertion_sort()
+
 def main():
     # maybe add default if no argument is provided, or at least prevent crash
     malware_path = sys.argv[1] # path to directory with malware
@@ -41,6 +55,7 @@ def main():
         # rule1.keys() is a list of all memory addresses in file (one of each) as strings
         # converts all addresses from string to int (for arithmetic)
         addr_as_hex = [int(addr, 16) for addr in rule1.keys()] # Haskell lol
+        insertion_sort(addr_as_hex) # sort array
 
         # determines if current file is malware based on parameters stated earlier
         is_malware = False # initially assumes file is not malware
